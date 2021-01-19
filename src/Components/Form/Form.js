@@ -16,7 +16,9 @@ class Form extends Component {
 
   submit() {
     axios.post('/api/post', this.state)
-      .then(() => 'replace this string with something useful')
+      .then(res => {
+        this.props.history.push('/Dash')
+      })
       .catch((err) => console.log(err))
   }
   
