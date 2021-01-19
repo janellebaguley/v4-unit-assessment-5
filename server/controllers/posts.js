@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 module.exports = {
     readPosts: async (req, res) => {
       let { id } = req.session.user;

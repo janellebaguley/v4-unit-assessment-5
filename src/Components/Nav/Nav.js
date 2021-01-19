@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link, withRouter} from 'react-router-dom'
+import {connect} from 'react-redux';
+import {Link, withRouter} from 'react-router-dom';
+import {updateUser, logout} from './../../redux/reducer';
 import homeLogo from './../../assets/home_logo.png';
 import newLogo from './../../assets/new_logo.png';
 import logoutLogo from './../../assets/shut_down.png';
@@ -18,14 +20,21 @@ class Nav extends Component {
     this.getUser()
   }
 
-  getUser() {
+  getUser= () => {
     axios.get('/api/auth/me')
-    .then(res => 'replace this string with something useful')
+    .then(res => {
+      this.props.updateUser(res.data)
+      this.props.history.push('/Dash')
+    })
+    .catch(err => console.log(err))
   }
   
   logout() {
     axios.post('/api/auth/logout')
-      .then(_ => 'replace this string with something else')
+      .then(() => {this.props.logout({});
+        this.props.history.push('/')
+      })
+      .catch(err => console.log(err))
   }
   
   render() {
@@ -43,11 +52,13 @@ class Nav extends Component {
             <img className='nav-img' src={newLogo} alt='new post' />
             </Link>
           </div>
-            <Link to = '/Auth' onClick = {logout}>
+            <Link to = '/Auth'>
           <img className='nav-img logout' src={logoutLogo} alt='logout' />
             </Link>
         </div>
   }
 }
 
-export default withRouter(Nav);
+const mapStateToProps = reduxState => reduxState;
+
+export default withRouter(connect(mapStateToProps, {updateUser, logout}))(Nav);
