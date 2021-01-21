@@ -31,7 +31,7 @@ class Nav extends Component {
   
   logout() {
     axios.post('/api/auth/logout')
-      .then(() => {this.props.logout({});
+      .then(() => {this.props.logout();
         this.props.history.push('/')
       })
       .catch(err => console.log(err))
@@ -42,7 +42,7 @@ class Nav extends Component {
         <div className='nav'>
           <div className='nav-profile-container'>
             <div className='nav-profile-pic'></div>
-            <p>placeholder username</p>
+            <p>{this.props.username}</p>
           </div>
           <div className='nav-links'>
             <Link to = '/dash'>
@@ -61,4 +61,4 @@ class Nav extends Component {
 
 const mapStateToProps = reduxState => reduxState;
 
-export default withRouter(connect(mapStateToProps, {updateUser, logout}))(Nav);
+export default connect(mapStateToProps, {updateUser, logout})(withRouter(Nav));
