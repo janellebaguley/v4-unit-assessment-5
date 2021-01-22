@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action){
     const {type, payload} = action;
     switch(type){
         case UPDATE_USER:
-            return {...state, username: payload, profile_pic: payload};
+            return {...state, username: payload};
         case LOGOUT_USER: 
             return {...state, username: payload};
         default:

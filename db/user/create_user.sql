@@ -1,3 +1,3 @@
-insert into helo_users(user_name, password, profile_pic)
-values($1, ${hash}, $3)
+insert into helo_users(username, password, profile_pic)
+values($1, $2, $3)
 returning *;
